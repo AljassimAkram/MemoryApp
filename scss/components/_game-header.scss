@@ -1,0 +1,84 @@
+@use "../abstract/variables" as *;
+
+.game-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: center;
+  padding: 1rem 5.5rem;
+  background-color: $bg-color;
+  color: $text-white;
+  font-family: sans-serif;
+
+  &__score-group {
+    justify-self: start;
+    display: flex;
+    gap: 1.5rem;
+    background-color: rgba(255, 255, 255, 0.05);
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+  }
+
+  &__score-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: bold;
+
+    &--blue {
+      color: $blue-player;
+    }
+    &--orange {
+      color: $orange-player;
+    }
+  }
+
+  &__current-player {
+    justify-self: center;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border: 2px solid rgba($pink-border, 0.5);
+    padding: 0.4rem 0.8rem;
+    border-radius: 4px;
+  }
+
+  &__icon {
+    width: 12px;
+    height: 12px;
+    background-color: currentColor;
+    clip-path: polygon(
+      0% 20%,
+      60% 20%,
+      60% 0%,
+      100% 50%,
+      60% 100%,
+      60% 80%,
+      0% 80%
+    );
+
+    &--blue {
+      color: $blue-player;
+    }
+    &--orange {
+      color: $orange-player;
+    }
+  }
+
+  &__actions {
+    justify-self: end;
+  }
+
+  &__exit-btn {
+    background-color: transparent;
+    border: 1px solid #555555;
+    color: $text-white;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.2s;
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+  }
+}
