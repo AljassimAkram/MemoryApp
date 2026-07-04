@@ -26,10 +26,10 @@ class App {
     this.appEL.innerHTML = settingTemplate;
     const previewImg = document.querySelector<HTMLImageElement>('.settings__preview-card--back img');
     const PREVIEW_IMAGES: Record<string, string> = {
-      codeVibes: '/svg/codeVibes/git.svg',
-      gaming: '/svg/gaming/Asset16@2x1.svg',
-      daProjects: '/svg/daProjectsTheme/16_Pollapp.svg',
-      foods: '/svg/foods/01@3x1.svg',
+      codeVibes: './svg/codeVibes/git.svg',
+      gaming: './svg/gaming/Asset16@2x1.svg',
+      daProjects: './svg/daProjectsTheme/16_Pollapp.svg',
+      foods: './svg/foods/01@3x1.svg',
     };
     this.setupThemePreviewListeners(previewImg, PREVIEW_IMAGES);
     const checkedTheme = document.querySelector<HTMLInputElement>('input[name="theme"]:checked');

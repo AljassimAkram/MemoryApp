@@ -7,14 +7,14 @@ export const settingTemplate = html`
         Settings
         <img
           class="settings__line"
-          src="/svg/settings/lineLeft.svg"
+          src="./svg/settings/lineLeft.svg"
           alt="lineLeft"
         />
       </h2>
       <form class="settings__form" id="setting-from">
         <fieldset class="settings__fieldset" data-group="theme">
           <legend>
-            <img class="" src="/svg/settings/palette.svg" alt="palette" />
+            <img class="" src="./svg/settings/palette.svg" alt="palette" />
             Theme
           </legend>
           <label>
@@ -36,7 +36,7 @@ export const settingTemplate = html`
         </fieldset>
         <fieldset class="settings__fieldset" data-group="player">
           <legend>
-            <img class="" src="/svg/settings/chess_pawn.svg" alt="chess_pawn" />
+            <img class="" src="./svg/settings/chess_pawn.svg" alt="chess_pawn" />
             Choose player
           </legend>
           <label>
@@ -50,7 +50,7 @@ export const settingTemplate = html`
         </fieldset>
         <fieldset class="settings__fieldset" data-group="cardCount">
           <legend>
-            <img class="" src="/svg/settings/style.svg" alt="style" />
+            <img class="" src="./svg/settings/style.svg" alt="style" />
             Board size
           </legend>
           <label>
@@ -91,14 +91,14 @@ export const settingTemplate = html`
         </div>
         <div class="settings__preview-card--front"></div>
         <div class="settings__preview-card--back">
-          <img src="/svg/codeVibes/git.svg" alt="preview card 2" />
+          <img src="./svg/codeVibes/git.svg" alt="preview card 2" />
         </div>
       </div>
       <div class="settings__footer">
         <span>Game theme</span>
-        <img src="/svg/settings/verticalLine.svg" alt="verticalLine" />
+        <img src="./svg/settings/verticalLine.svg" alt="verticalLine" />
         <span>Player</span>
-        <img src="/svg/settings/verticalLine.svg" alt="verticalLine" />
+        <img src="./svg/settings/verticalLine.svg" alt="verticalLine" />
         <span>Board size</span>
         <button class="settings__submit" type="submit" form="setting-from" disabled>
           Start
