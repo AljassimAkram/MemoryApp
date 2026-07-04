@@ -8,20 +8,20 @@ export const startScreenTemplate = html`
 
       <img
         class="home__controller"
-        src="/svg/startScreen/stadia_controller.svg"
+        src="./svg/startScreen/stadia_controller.svg"
         alt="Controller"
       />
 
       <button class="home__btn" id="play-btn">
         <img
           class="home__controllerSmall"
-          src="/svg/startScreen/stadiaControllerSmall.svg"
+          src="./svg/startScreen/stadiaControllerSmall.svg"
           alt="Controller"
         />
         Play
         <img
           class="home__controllerSmall"
-          src="/svg/startScreen/arrow.svg"
+          src="./svg/startScreen/arrow.svg"
           alt="Controller"
         />
       </button>
