@@ -7,8 +7,11 @@ import {
 } from "../templates/gameOverTemplate.ts";
 import confetti from "canvas-confetti";
 import { THEMES } from "../data/themes.ts";
-import { exitDialogTemplate } from "../templates/exitDialogTemplate.ts";
+
 import { shuffle } from '../utils/shuffle';
+import { getWinner } from "../utils/gameHelpers.ts";
+import { createOverlay, slideIn } from "../utils/domHelpers.ts";
+import { showExitDialog } from "../utils/exitDialog.ts";
 
 export class MemoryGame {
   private config: GameConfig;
@@ -61,26 +64,8 @@ export class MemoryGame {
       });
 
       const exitBtn = headerContainer.querySelector(".game-header__exit-btn");
-      exitBtn?.addEventListener("click", () => this.showExitDialog());
+      exitBtn?.addEventListener("click", () => showExitDialog());
     }
-  }
-
-  /** Shows the exit confirmation dialog. */
-  private showExitDialog(): void {
-    const dialog = document.createElement("div");
-    dialog.innerHTML = exitDialogTemplate();
-    const box = dialog.firstElementChild as HTMLElement;
-    document.body.appendChild(box);
-
-    box
-      .querySelector(".exit-dialog__btn--back")
-      ?.addEventListener("click", () => box.remove());
-    box
-      .querySelector(".exit-dialog__btn--exit")
-      ?.addEventListener("click", () => {
-        document.dispatchEvent(new CustomEvent("game:exit"));
-        box.remove();
-      });
   }
 
   /**
@@ -209,40 +194,9 @@ export class MemoryGame {
     }, 1000);
   }
 
-  /**
-   * Returns the winning player.
-   * @returns Winner or `null` for a draw.
-   */
-  private getWinner(): "blue" | "orange" | null {
-    if (this.scoreBlue > this.scoreOrange) return "blue";
-    if (this.scoreOrange > this.scoreBlue) return "orange";
-    return null;
-  }
-
   /** Displays the winner screen. */
   private showWinner(): void {
-    this.showGameOverScreen(this.getWinner());
-  }
-
-  /**
-   * Creates the game-over overlay.
-   * @returns Overlay element.
-   */
-  private createOverlay(): HTMLElement {
-    const overlay = document.createElement("div");
-    overlay.classList.add("game-over");
-    document.body.appendChild(overlay);
-    return overlay;
-  }
-
-  /**
-   * Animates a panel into view.
-   * @param panel Panel element.
-   */
-  private slideIn(panel: HTMLElement): void {
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => panel.classList.add("is-visible"));
-    });
+    this.showGameOverScreen(getWinner(this.scoreBlue, this.scoreOrange));
   }
 
   /**
@@ -263,35 +217,61 @@ export class MemoryGame {
   }
 
   /**
-   * Displays the winner panel.
-   * @param winner Winning player or `null`.
-   */
-  private showWinnerPanel(winner: "blue" | "orange" | null): void {
-    const overlay = this.createOverlay();
-    overlay.innerHTML = gameOverWinnerTemplate({
-      scoreBlue: this.scoreBlue,
-      scoreOrange: this.scoreOrange,
-      winner,
-    });
-    const winnerPanel = overlay.querySelector(
-      ".game-over__panel",
-    ) as HTMLElement;
-    this.slideIn(winnerPanel);
-    if (winner) setTimeout(() => this.fireConfetti(winner), 500);
-    winnerPanel
-      .querySelector(".game-over__restart-btn")
-      ?.addEventListener("click", () => {
-        document.querySelectorAll(".game-over").forEach((el) => el.remove());
-        document.dispatchEvent(new CustomEvent("game:exit"));
-      });
+ * Displays the winner panel.
+ * @param winner Winning player or `null`.
+ */
+private showWinnerPanel(winner: "blue" | "orange" | null): void {
+  const overlay = createOverlay();
+
+  overlay.innerHTML = gameOverWinnerTemplate({
+    scoreBlue: this.scoreBlue,
+    scoreOrange: this.scoreOrange,
+    winner,
+  });
+
+  const winnerPanel = overlay.querySelector(
+    ".game-over__panel",
+  ) as HTMLElement;
+
+  this.showWinnerAnimation(winnerPanel, winner);
+  this.bindWinnerRestart(winnerPanel);
+}
+
+/**
+ * Plays the winner animation and launches confetti.
+ * @param panel Winner panel element.
+ * @param winner Winning player or `null`.
+ */
+private showWinnerAnimation(
+  panel: HTMLElement,
+  winner: "blue" | "orange" | null,
+): void {
+  slideIn(panel);
+
+  if (winner) {
+    setTimeout(() => this.fireConfetti(winner), 500);
   }
+}
+
+/**
+ * Binds the restart button inside the winner panel.
+ * @param panel Winner panel element.
+ */
+private bindWinnerRestart(panel: HTMLElement): void {
+  panel
+    .querySelector(".game-over__restart-btn")
+    ?.addEventListener("click", () => {
+      document.querySelectorAll(".game-over").forEach((el) => el.remove());
+      document.dispatchEvent(new CustomEvent("game:exit"));
+    });
+}
 
   /**
    * Displays the game-over screen.
    * @param winner Winning player or `null`.
    */
   private showGameOverScreen(winner: "blue" | "orange" | null): void {
-    const overlay = this.createOverlay();
+    const overlay = createOverlay();
     overlay.innerHTML = gameOverScoreTemplate({
       scoreBlue: this.scoreBlue,
       scoreOrange: this.scoreOrange,
@@ -300,7 +280,7 @@ export class MemoryGame {
     const scorePanel = overlay.querySelector(
       ".game-over__panel",
     ) as HTMLElement;
-    this.slideIn(scorePanel);
+    slideIn(scorePanel);
     setTimeout(() => this.showWinnerPanel(winner), 5000);
   }
 }

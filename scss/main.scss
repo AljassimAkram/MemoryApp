@@ -1,16 +1,7 @@
-// 1. Abstracts
 @use 'abstract/variables';
 @use 'abstract/mixins';
-
-// 2. Vendors
-
-// 3. Base
 @use 'base/fonts';
 @use 'base/reset';
-
-// 4. Layout
-
-// 5. Components
 @use 'components/game-grid';
 @use 'components/card';
 @use 'components/game-header';
@@ -19,11 +10,7 @@
 @use 'components/settings';
 @use 'components/game-over';
 @use 'components/exit-dialog';
-
-// 6. Pages
-
-// 7. Themes
-@use 'themes/code-vibes';
 @use 'themes/gaming';
 @use 'themes/da-projects';
 @use 'themes/foods';
+@use 'responsive';
