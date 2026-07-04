@@ -2,7 +2,8 @@ import { defineConfig } from "vite";
 import { resolve } from "path";
 
 export default defineConfig({
-  base: "./",
+  base: "/MemoryApp/",
+
   resolve: {
     alias: {
       "@scss": resolve(__dirname, "scss"),
@@ -15,3 +16,4 @@ export default defineConfig({
     },
   },
 });
+
