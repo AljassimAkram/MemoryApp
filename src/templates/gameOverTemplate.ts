@@ -42,14 +42,14 @@ export const gameOverWinnerTemplate = (props: GameOverProps): string => {
       </p>
       <img
         class="game-over__winner-icon"
-        src="/winner/${props.winner}Player.svg"
+        src="./winner/${props.winner}Player.svg"
         alt="${props.winner} player"
       />
     `;
 
     return html`
     <div class="game-over__panel">
-      <img class="game-over__confetti" src="/winner/Confetti.svg" alt="confetti" />
+      <img class="game-over__confetti" src="./winner/Confetti.svg" alt="confetti" />
       <p class="game-over__winner-label">${isDraw ? 'Draw!' : 'The winner is'}</p>
       ${winnerContent}
       <button class="game-over__restart-btn">Back to start</button>
