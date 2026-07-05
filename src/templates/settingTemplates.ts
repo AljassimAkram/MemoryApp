@@ -27,7 +27,7 @@ export const settingTemplate = html`
           </label>
           <label>
             <input type="radio" name="theme" value="daProjects" />
-            DA Projects Theme
+            DA Projects theme
           </label>
           <label>
             <input type="radio" name="theme" value="foods" />
@@ -55,15 +55,15 @@ export const settingTemplate = html`
           </legend>
           <label>
             <input type="radio" name="cardCount" value="16"/>
-            16
+            16 cards
           </label>
           <label>
             <input type="radio" name="cardCount" value="24" />
-            24
+            24 cards
           </label>
           <label>
             <input type="radio" name="cardCount" value="36" />
-            36
+            36 cards
           </label>
         </fieldset>
       </form>
