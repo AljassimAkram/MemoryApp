@@ -27,16 +27,14 @@ export const gameOverScoreTemplate = (props: GameOverProps): string => html`
 `;
 
 /**
- * Returns the winner announcement panel HTML.
- * Shows "DRAW" or the winning player's name and icon.
- * @param props - Final scores and winner
+ * Creates the winner panel.
+ * @param props - Game result
  */
 export const gameOverWinnerTemplate = (props: GameOverProps): string => {
-    const isDraw = props.winner === null;
-
-    const winnerContent = isDraw
-        ? `<p class="game-over__winner-name">UNENTSCHIEDEN</p>`
-        : `
+  const isDraw = props.winner === null;
+  const winnerContent = isDraw
+    ? `<p class="game-over__winner-name">UNENTSCHIEDEN</p>`
+    : `
       <p class="game-over__winner-name game-over__winner-name--${props.winner}">
         ${props.winner!.toUpperCase()} PLAYER
       </p>
@@ -46,13 +44,26 @@ export const gameOverWinnerTemplate = (props: GameOverProps): string => {
         alt="${props.winner} player"
       />
     `;
-
-    return html`
-    <div class="game-over__panel">
-      <img class="game-over__confetti" src="./winner/Confetti.svg" alt="confetti" />
-      <p class="game-over__winner-label">${isDraw ? 'Draw!' : 'The winner is'}</p>
-      ${winnerContent}
-      <button class="game-over__restart-btn">Back to start</button>
-    </div>
-  `;
+  return renderWinnerPanel(isDraw, winnerContent);
 };
+
+/**
+ * Renders the winner panel.
+ * @param isDraw - Whether the game ended in a draw.
+ * @param winnerContent - Winner HTML.
+ */
+const renderWinnerPanel = (
+  isDraw: boolean,
+  winnerContent: string,
+): string => html`
+  <div class="game-over__panel">
+    <img
+      class="game-over__confetti"
+      src="./winner/Confetti.svg"
+      alt="confetti"
+    />
+    <p class="game-over__winner-label">${isDraw ? "Draw!" : "The winner is"}</p>
+    ${winnerContent}
+    <button class="game-over__restart-btn">Back to start</button>
+  </div>
+`;

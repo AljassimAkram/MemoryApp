@@ -23,7 +23,7 @@ export const settingTemplate = html`
           </label>
           <label>
             <input type="radio" name="theme" value="gaming" />
-            Geming theme
+            Gaming theme
           </label>
           <label>
             <input type="radio" name="theme" value="daProjects" />
